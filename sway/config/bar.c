@@ -218,6 +218,8 @@ static void invoke_swaybar(struct bar_config *bar) {
 		sigemptyset(&set);
 		sigprocmask(SIG_SETMASK, &set, NULL);
 
+		restore_nofile_limit();
+
 		pid = fork();
 		if (pid < 0) {
 			sway_log_errno(SWAY_ERROR, "fork failed");
