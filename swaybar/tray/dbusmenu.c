@@ -312,7 +312,7 @@ static void draw_menu_items(cairo_t *cairo, struct swaybar_dbusmenu_menu *menu,
 				uint32_t disabled_color = c - ((c & 0xFF) >> 1);
 				cairo_set_source_u32(cairo, disabled_color);
 			}
-			render_text(cairo, config->font, output->scale, false, "%s",
+			pango_printf(cairo, config->font, output->scale, false, "%s",
 					item->label);
 
 			// draw icon or menu indicator if needed
