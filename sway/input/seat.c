@@ -479,6 +479,7 @@ static void handle_request_set_selection(struct wl_listener *listener,
 		wl_container_of(listener, seat, request_set_selection);
 	struct wlr_seat_request_set_selection_event *event = data;
 	wlr_seat_set_selection(seat->wlr_seat, event->source, event->serial);
+	wlr_seat_set_primary_selection(seat->wlr_seat, event->source, event->serial);
 }
 
 static void handle_request_set_primary_selection(struct wl_listener *listener,
@@ -574,11 +575,6 @@ struct sway_seat *seat_create(const char *seat_name) {
 	wl_signal_add(&seat->wlr_seat->events.request_set_selection,
 		&seat->request_set_selection);
 	seat->request_set_selection.notify = handle_request_set_selection;
-
-	wl_signal_add(&seat->wlr_seat->events.request_set_primary_selection,
-		&seat->request_set_primary_selection);
-	seat->request_set_primary_selection.notify =
-		handle_request_set_primary_selection;
 
 	wl_list_init(&seat->keyboard_groups);
 	wl_list_init(&seat->keyboard_shortcuts_inhibitors);
